@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>text/campaign_names_prefix.txt</file>
+        <file>text/campaign_names_suffix.txt</file>
+        <file>text/mission_names_prefix.txt</file>
+        <file>text/mission_names_suffix.txt</file>
+    </qresource>
+</RCC>
