@@ -10,9 +10,6 @@
     <height>217</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Mission Name Generator (c) PMC</string>
-  </property>
   <widget class="QPlainTextEdit" name="plainMissionName">
    <property name="geometry">
     <rect>
@@ -96,6 +93,58 @@
    </property>
    <property name="text">
     <string>Campaign name</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBoxPMCPrefix">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>10</y>
+     <width>71</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PMC Prefix</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ClipboardMissionName">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>40</y>
+     <width>131</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Clipboard Mission Name</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ClipboardCampaignName">
+   <property name="geometry">
+    <rect>
+     <x>424</x>
+     <y>120</y>
+     <width>131</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Clipboard Campaign Name</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ClipboardFileName">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>40</y>
+     <width>111</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Clipboard File Name</string>
    </property>
   </widget>
  </widget>

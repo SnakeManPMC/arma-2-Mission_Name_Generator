@@ -8,6 +8,8 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowTitle("Mission Name Generator v1.0 by PMC");
+
     // initialize random seed:
     QTime timmy(0, 0, 0);
     qsrand(timmy.secsTo(QTime::currentTime()));
@@ -128,20 +130,20 @@ Create mission names
 */
 void Widget::on_MissionName_clicked()
 {
-	QString str;
-
 	// clear the text box
 	ui->plainMissionName->clear();
 
 	// randomly select one name and write it.
 	int idx = qrand() % missions_prefix.size();
-	str.append(missions_prefix[idx]);
-	str.append(" ");
+	missionName = (missions_prefix[idx]);
+	missionName.append(" ");
 
 	idx = qrand() % missions_suffix.size();
-	str.append(missions_suffix[idx]);
+	missionName.append(missions_suffix[idx]);
 
-	ui->plainMissionName->appendPlainText(str);
+	if (ui->checkBoxPMCPrefix->isChecked()) missionName.insert(0, "PMC ");
+
+	ui->plainMissionName->appendPlainText(missionName);
 }
 
 
@@ -152,20 +154,20 @@ Create campaign names
 */
 void Widget::on_Campaign_clicked()
 {
-	QString str;
-
 	// clear the text box
 	ui->plainCampaignName->clear();
 
 	// randomly select one name and write it.
 	int idx = qrand() % campaigns_prefix.size();
-	str.append(campaigns_prefix[idx]);
-	str.append(" ");
+	campaignName = (campaigns_prefix[idx]);
+	campaignName.append(" ");
 
 	idx = qrand() % campaigns_suffix.size();
-	str.append(campaigns_suffix[idx]);
+	campaignName.append(campaigns_suffix[idx]);
 
-	ui->plainCampaignName->appendPlainText(str);
+	if (ui->checkBoxPMCPrefix->isChecked()) campaignName.insert(0, "PMC ");
+
+	ui->plainCampaignName->appendPlainText(campaignName);
 }
 
 
@@ -178,4 +180,32 @@ void Widget::on_All_clicked()
 {
 	on_MissionName_clicked();
 	on_Campaign_clicked();
+}
+
+
+// clipboard mission name
+void Widget::on_ClipboardMissionName_clicked()
+{
+	QClipboard *clipboard = QApplication::clipboard();
+	clipboard->setText(missionName);
+}
+
+
+// clipboard campaign name
+void Widget::on_ClipboardCampaignName_clicked()
+{
+	QClipboard *clipboard = QApplication::clipboard();
+	clipboard->setText(campaignName);
+}
+
+
+// file name in lowercase and replace spaces with underscores
+void Widget::on_ClipboardFileName_clicked()
+{
+	QString missionFileName;
+	missionFileName = missionName;
+	missionFileName.replace(" ", "_");
+
+	QClipboard *clipboard = QApplication::clipboard();
+	clipboard->setText(missionFileName.toLower());
 }
