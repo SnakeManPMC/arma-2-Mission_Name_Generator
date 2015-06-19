@@ -19,10 +19,13 @@ protected:
 private:
     Ui::Widget *ui;
     void Load_Names();
+    void Load_Dupes();
+    void Save_Dupes();
     QVector<QString> missions_prefix;
     QVector<QString> missions_suffix;
     QVector<QString> campaigns_prefix;
     QVector<QString> campaigns_suffix;
+    QVector<QString> dupe_names;
     QString missionName,campaignName;
 
 private slots:
@@ -32,6 +35,9 @@ private slots:
     void on_ClipboardMissionName_clicked();
     void on_ClipboardCampaignName_clicked();
     void on_ClipboardFileName_clicked();
+    void on_missionDupe_clicked();
+    void on_campaignDupe_clicked();
+    void on_saveDupe_clicked();
 };
 
 #endif // WIDGET_H

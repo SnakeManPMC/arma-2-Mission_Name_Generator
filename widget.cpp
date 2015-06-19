@@ -8,7 +8,7 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle("Mission Name Generator v1.0 by PMC");
+    setWindowTitle("Mission Name Generator v1.0.1 by PMC");
 
     // initialize random seed:
     QTime timmy(0, 0, 0);
@@ -16,6 +16,8 @@ Widget::Widget(QWidget *parent) :
 
     // at start we need to load the names
     Load_Names();
+    // duplicate names
+    Load_Dupes();
 }
 
 Widget::~Widget()
@@ -70,7 +72,7 @@ void Widget::Load_Names()
 	if (!file2.open(QIODevice::ReadOnly))
 	{
 		QMessageBox::information(this, tr("Unable to open file"),
-		file.errorString());
+		file2.errorString());
 		return;
 	}
 
@@ -89,7 +91,7 @@ void Widget::Load_Names()
 	if (!file3.open(QIODevice::ReadOnly))
 	{
 		QMessageBox::information(this, tr("Unable to open file"),
-		file.errorString());
+		file3.errorString());
 		return;
 	}
 
@@ -108,7 +110,7 @@ void Widget::Load_Names()
 	if (!file4.open(QIODevice::ReadOnly))
 	{
 		QMessageBox::information(this, tr("Unable to open file"),
-		file.errorString());
+		file4.errorString());
 		return;
 	}
 
@@ -120,6 +122,55 @@ void Widget::Load_Names()
 		if (line.size() > 0) campaigns_suffix.push_back(line);
 	}
 	file4.close();
+}
+
+
+/*
+
+Load duplicate names
+
+*/
+void Widget::Load_Dupes()
+{
+	QFile file("Mission_Name_Generator.txt");
+
+	if (!file.open(QIODevice::ReadOnly))
+	{
+		QMessageBox::information(this, "unable to open file", "unable to open Mission_Name_Generator.txt\n\nBut dont worry, I created it for you.");
+		return;
+	}
+
+	QTextStream in(&file);
+	QString line;
+
+	while (!in.atEnd())
+	{
+		line = in.readLine();
+		if (line.size() > 0) dupe_names.push_back(line);
+	}
+	file.close();
+}
+
+
+void Widget::Save_Dupes()
+{
+	QFile file("Mission_Name_Generator.txt");
+
+	if (!file.open(QIODevice::WriteOnly))
+	{
+		QMessageBox::information(this, tr("Unable to open file"),
+		file.errorString());
+		return;
+	}
+
+	QTextStream out(&file);
+	QString line;
+
+	for (int i = 0; i < dupe_names.size(); i++)
+	{
+		out << dupe_names.at(i) << "\n";
+	}
+	file.close();
 }
 
 
@@ -142,6 +193,19 @@ void Widget::on_MissionName_clicked()
 	missionName.append(missions_suffix[idx]);
 
 	if (ui->checkBoxPMCPrefix->isChecked()) missionName.insert(0, "PMC ");
+
+	// if we got duplicate name, lets randomize it until we get name that is not dupe
+	while (dupe_names.contains(missionName))
+	{
+		int idx = qrand() % missions_prefix.size();
+		missionName = (missions_prefix[idx]);
+		missionName.append(" ");
+
+		idx = qrand() % missions_suffix.size();
+		missionName.append(missions_suffix[idx]);
+
+		if (ui->checkBoxPMCPrefix->isChecked()) missionName.insert(0, "PMC ");
+	}
 
 	ui->plainMissionName->appendPlainText(missionName);
 }
@@ -208,4 +272,25 @@ void Widget::on_ClipboardFileName_clicked()
 
 	QClipboard *clipboard = QApplication::clipboard();
 	clipboard->setText(missionFileName.toLower());
+}
+
+
+// add mission name to dupe database
+void Widget::on_missionDupe_clicked()
+{
+	dupe_names.push_back(missionName);
+}
+
+
+// add campaign name to dupe database
+void Widget::on_campaignDupe_clicked()
+{
+	dupe_names.push_back(campaignName);
+}
+
+
+// save dupe database to file
+void Widget::on_saveDupe_clicked()
+{
+	Save_Dupes();
 }

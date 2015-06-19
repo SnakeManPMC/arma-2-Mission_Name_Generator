@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>217</height>
+    <height>244</height>
    </rect>
   </property>
   <widget class="QPlainTextEdit" name="plainMissionName">
@@ -145,6 +145,45 @@
    </property>
    <property name="text">
     <string>Clipboard File Name</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="missionDupe">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>210</y>
+     <width>101</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Mission to Dupe DB</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="campaignDupe">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>210</y>
+     <width>114</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Campaign to Dupe DB</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="saveDupe">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>210</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save Dupe DB</string>
    </property>
   </widget>
  </widget>
