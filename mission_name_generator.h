@@ -4,7 +4,7 @@
 class Mission_Name_Generator
 {
 public:
-    Mission_Name_Generator();
+	Mission_Name_Generator();
 };
 
 #endif // MISSION_NAME_GENERATOR_H
